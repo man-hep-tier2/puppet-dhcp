@@ -33,6 +33,7 @@ describe 'Simple installation' do
       ip  => $interface['ip'],
       mac => $interface['mac'],
     }
+
     EOS
   end
 

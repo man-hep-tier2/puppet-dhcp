@@ -71,8 +71,7 @@ class dhcp (
   # Only debian and ubuntu have this style of defaults for startup.
   case $facts['osfamily'] {
     'Debian': {
-      file{ '/etc/default/isc-dhcp-server':
-        ensure  => file,
+      file { '/etc/default/isc-dhcp-server':
         owner   => 'root',
         group   => 'root',
         mode    => '0644',

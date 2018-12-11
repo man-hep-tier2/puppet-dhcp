@@ -34,6 +34,16 @@ Define the server and the zones it will be responsible for.
       pxefilename  => 'pxelinux.0',
     }
 
+DHCPD6 can be deployed by defining the following class. Note, class dhcp is required.
+
+    class { 'dhcp::dhcp6':
+      dnsdomain    => [
+        'dc1.example.net',
+        ],
+      interfaces   => ['eth0'],
+      nameservers  => ['3ffe:501:ffff:100:200:ff:fe00:3f3e'],
+    }
+
 ### dhcp::pool
 Define the pool attributes
 
@@ -66,6 +76,16 @@ For the support of static routes (RFC3442):
                           { 'mask' => '0',                                  'gateway' => $gw } ],
     }
 
+### dhcp::pool6
+An example for defining an ipv6 subnet:
+
+    dhcp::pool6{ 'v6domain.example.net':
+      network        => '3ffe:501:ffff::',
+      prefix         => 64,
+      search_domains => ['domain.example.net'],
+      range          => '3ffe:501:ffff::1fff 3ffe:501:ffff::ffff',
+    }
+
 ### dhcp::host
 Create host reservations.
 
@@ -74,6 +94,16 @@ Create host reservations.
       'server2': mac => "00:50:56:00:00:02", ip => "10.0.1.52";
       'server3': mac => "00:50:56:00:00:03", ip => "10.0.1.53";
     }
+
+### dhcp::host6
+Create ipv6 host reservation
+
+    dhcp::host6 {
+      'server1': mac => "00:50:56:00:00:01", ip => "3ffe:501:ffff::51";
+      'server2': mac => "00:50:56:00:00:01", ip => "3ffe:501:ffff::52";
+      'server3': mac => "00:50:56:00:00:01", ip => "3ffe:501:ffff::53";
+    }
+
 
 ## Contributors
 
